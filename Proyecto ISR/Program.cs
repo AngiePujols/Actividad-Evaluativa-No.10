@@ -30,27 +30,26 @@ namespace Proyecto_ISR
                         case 1: //Exento
                             break;
                         case 2: //15%
-                            controller.evaluarSueldo15(sueldoActual);
+                            isrPagar = controller.evaluarSueldo15(sueldoActual);
                             break;
                         case 3: //20%
-                            controller.evaluarSueldo20(sueldoActual);
+                            isrPagar = controller.evaluarSueldo20(sueldoActual);
                             break;
                         case 4: //25%
-                            controller.evaluarSueldo25(sueldoActual);
+                            isrPagar = controller.evaluarSueldo25(sueldoActual);
                             break;
                         default:
                             isrPagar = 0;
                             break;
                     }
 
-                    Console.WriteLine($"El ISR a pagar es de {isrPagar} mensual");
+                    Console.WriteLine($"El ISR a pagar es de {isrPagar:N} mensual");
                 }
                 else
                 {
                     Console.WriteLine("Favor ingresar solo valores numericos");
-                    Console.ReadKey();
                 }
-
+                Console.ReadKey();
             }
         }
     }

@@ -7,7 +7,7 @@
             new RangoSueldoTipo
             {
                 Tipo = 1, //Exento
-                RangoAnual = 416220
+                RangoAnual = 416400
             },
 
             new RangoSueldoTipo
@@ -31,11 +31,18 @@
 
         public short evaluarSueldo(decimal sueldoActual)
         {
-            short tipoRango;
+            short tipoRango = 0;
             try
 			{
 				decimal sueldoAnual = sueldoActual * 12;
-                tipoRango = listaRangoSalarial.Where(x => x.RangoAnual >= sueldoActual).Max(x => x.Tipo);
+                foreach (var fila in listaRangoSalarial)
+                {
+                    if(sueldoAnual < fila.RangoAnual)
+                    {
+                        tipoRango = fila.Tipo; 
+                        break;
+                    }
+                }
 			}
 			catch (Exception)
 			{
@@ -46,36 +53,45 @@
         }
 
         public decimal evaluarSueldo15(decimal sueldoMensual)
-{
-    decimal impuesto = 0;
-    decimal sueldoAnual = sueldoMensual * 12;
+        {
+            decimal impuesto = 0;
+            decimal sueldoAnual = sueldoMensual * 12;
 
-    if (sueldoAnual > 416220 && sueldoAnual <= 624329)
-    {
-        decimal sueldoExcedente = sueldoAnual - 416220;
-        impuesto = sueldoExcedente * 0.15m;
-    }
+            if (sueldoAnual > 416220 && sueldoAnual <= 624329)
+            {
+                decimal sueldoExcedente = sueldoAnual - 416220;
+                impuesto = (sueldoExcedente * 0.15m) / 12;
+            }
 
-    return impuesto;
-}
+            return impuesto;
+        }
 	    
-public decimal evaluarSueldo20(decimal sueldoMensual)
-{
-    decimal impuesto = 0;
-    decimal sueldoAnual = sueldoMensual * 12;
+        public decimal evaluarSueldo20(decimal sueldoMensual)
+        {
+            decimal impuesto = 0;
+            decimal sueldoAnual = sueldoMensual * 12;
 
-    if (sueldoAnual > 624329 && sueldoAnual <= 867123)
-    {
-        decimal sueldoExcedente = sueldoAnual - 624329;
-        impuesto = 31216.00m + sueldoExcedente * 0.20m; 
-    }
+            if (sueldoAnual > 624329 && sueldoAnual <= 867123)
+            {
+                decimal sueldoExcedente = sueldoAnual - 624329;
+                impuesto = (31216.00m + sueldoExcedente * 0.20m) / 12;
+            }
 
-    return impuesto;
-}
+            return impuesto;
+        }
 	    
         public decimal evaluarSueldo25(decimal sueldoMensual)
         {
-            return 0;
+            decimal impuesto = 0;
+            decimal sueldoAnual = sueldoMensual * 12;
+
+            if (sueldoAnual > 867123)
+            {
+                decimal sueldoExcedente = sueldoAnual - 867123;
+                impuesto = (79776 + sueldoExcedente * 0.20m) / 12;
+            }
+
+            return impuesto;
         }
     }
 
