@@ -46,13 +46,33 @@
         }
 
         public decimal evaluarSueldo15(decimal sueldoMensual)
-        {
-            return 0;
-        }
-        public decimal evaluarSueldo20(decimal sueldoMensual)
-        {
-            return 0;
-        }
+{
+    decimal impuesto = 0;
+    decimal sueldoAnual = sueldoMensual * 12;
+
+    if (sueldoAnual > 416220 && sueldoAnual <= 624329)
+    {
+        decimal sueldoExcedente = sueldoAnual - 416220;
+        impuesto = sueldoExcedente * 0.15m;
+    }
+
+    return impuesto;
+}
+	    
+public decimal evaluarSueldo20(decimal sueldoMensual)
+{
+    decimal impuesto = 0;
+    decimal sueldoAnual = sueldoMensual * 12;
+
+    if (sueldoAnual > 624329 && sueldoAnual <= 867123)
+    {
+        decimal sueldoExcedente = sueldoAnual - 624329;
+        impuesto = 31216.00m + sueldoExcedente * 0.20m; 
+    }
+
+    return impuesto;
+}
+	    
         public decimal evaluarSueldo25(decimal sueldoMensual)
         {
             return 0;
